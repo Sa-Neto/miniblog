@@ -17,6 +17,8 @@ import Login from './pages/Login/Login'
 import { useEffect, useState } from 'react'
 import { useAuthetication } from './hooks/useAuthentication'
 import { onAuthStateChanged } from 'firebase/auth'
+import CreatePost from './pages/CreatePost/CreatePost'
+import Dashboard from './pages/Dashboard/Dashboard'
 
 
 function App() {
@@ -37,7 +39,7 @@ function App() {
   }
   return (
     <div className="App">
-      <AuthProvider value={{user}}>
+      <AuthProvider value={{ user }}>
         <BrowserRouter>
           <Navbar />
           <div className="container">
@@ -45,7 +47,9 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path='/register' element={<Register />} />
-              <Route path='/login' element={<Login />} />
+              <Route path='/login' element={!user ? <Login /> : <Navigate to="/" />} />
+              <Route path='/posts/create' element={<CreatePost/>} />
+              <Route path='/dashboard' element={<Dashboard/>}  />
             </Routes>
           </div>
           <Footer />
